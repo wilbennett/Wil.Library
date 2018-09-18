@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DCA5F3CA-B873-482A-9D62-243FC92F78D5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wil.Contracts.Enabled.Specs</RootNamespace>
+    <AssemblyName>Wil.Contracts.Enabled.Specs</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <!--<RestorePackagesBeforeBuild>true</RestorePackagesBeforeBuild>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugTests-NP-|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugTests-NP-\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="TechTalk.SpecFlow, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.2.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Wil.Testing.MsTest.SpecFlowPlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wil.Testing.MsTest.SpecFlowPlugin.1.0.0\lib\net47\Wil.Testing.MsTest.SpecFlowPlugin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Wil.Contracts\SharedContracts\ContractObjectExtensions.cs">
+      <Link>SharedContracts\ContractObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\ExceptionFormat.cs">
+      <Link>SharedContracts\ExceptionFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\Exceptions.cs">
+      <Link>SharedContracts\Exceptions.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\Expect.cs">
+      <Link>SharedContracts\Expect.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\ExpectPrivate.cs">
+      <Link>SharedContracts\ExpectPrivate.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\Require.cs">
+      <Link>SharedContracts\Require.cs</Link>
+    </Compile>
+    <Compile Include="..\Wil.Contracts\SharedContracts\RequirePrivate.cs">
+      <Link>SharedContracts\RequirePrivate.cs</Link>
+    </Compile>
+    <Compile Include="CommonSteps.cs" />
+    <Compile Include="PrivateAssertions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrivateAssertions.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PrivateChecks.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrivateChecks.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PrivateContracts.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PrivateContracts.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PublicAssertions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PublicAssertions.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PublicChecks.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PublicChecks.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PublicContracts.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PublicContracts.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PrivateChecksSteps.cs" />
+    <Compile Include="PrivateContractSteps.cs" />
+    <Compile Include="PublicChecksSteps.cs" />
+    <Compile Include="PublicContractSteps.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestTraceListener.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="PrivateAssertions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PrivateAssertions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PrivateChecks.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PrivateChecks.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PrivateContracts.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PrivateContracts.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PublicAssertions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PublicAssertions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PublicChecks.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PublicChecks.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PublicContracts.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PublicContracts.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wil.Testing.MsTest\Wil.Testing.MsTest.csproj">
+      <Project>{9a76de65-1c17-43c3-b2c5-5366465638a5}</Project>
+      <Name>Wil.Testing.MsTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing.SpecFlow.Bindings\Wil.Testing.SpecFlow.Bindings.csproj">
+      <Project>{a71cb596-3491-4e28-8907-a19b5972063e}</Project>
+      <Name>Wil.Testing.SpecFlow.Bindings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing.SpecFlow\Wil.Testing.SpecFlow.csproj">
+      <Project>{85ad2aa5-d77f-49b6-a889-3a4c6024028a}</Project>
+      <Name>Wil.Testing.SpecFlow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing\Wil.Testing.csproj">
+      <Project>{47254578-de93-4e6d-b89c-ab9fc8a35337}</Project>
+      <Name>Wil.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets')" />
+</Project>

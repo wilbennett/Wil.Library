@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishLocalPackage>true</PublishLocalPackage>
+    <Configurations>Debug;Release;DebugTests-NP-</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ObservableEx.*.cs">
+      <DependentUpon>ObservableEx.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wil.Core.Interfaces\Wil.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\Wil.Core\Wil.Core.csproj" />
+    <ProjectReference Include="..\Wil.Reactive.Interfaces\Wil.Reactive.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

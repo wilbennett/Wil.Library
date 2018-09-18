@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishLocalPackage>true</PublishLocalPackage>
+    <Configurations>Debug;Release;DebugTests-NP-</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Wil.Contracts.xml</DocumentationFile>
+    <DefineConstants>DEBUG;PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugTests-NP-|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Wil.Contracts.xml</DocumentationFile>
+    <DefineConstants>DEBUG;PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>PUBLIC_CONTRACTS;PRIVATE_CONTRACTS;PUBLIC_CHECKS;PRIVATE_CHECKS;RELEASE;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+</Project>

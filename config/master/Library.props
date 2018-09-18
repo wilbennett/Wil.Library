@@ -1,0 +1,7 @@
+﻿<Project>
+  <PropertyGroup>
+    <NuGetExe>nuget</NuGetExe>
+    <LocalNuGetDir>d:\nuget\local\</LocalNuGetDir>
+    <NuGetPackageDir>$(MSBuildThisFileDirectory)\packages\</NuGetPackageDir>
+  </PropertyGroup>
+</Project>

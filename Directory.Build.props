@@ -1,0 +1,56 @@
+﻿<Project>
+  <Import Project="Library.props" />
+  <Import Project="Library.Common.props" />
+
+  <PropertyGroup>
+    <InIDE>false</InIDE>
+    <InIDE Condition="'$(BuildingInsideVisualStudio)' == 'true'">true</InIDE>
+    <EnableLocalPackages>true</EnableLocalPackages>
+    <LibraryMajor>1</LibraryMajor>
+    <LibraryMinor>0</LibraryMinor>
+    <LibraryBuild>0</LibraryBuild>
+    <PackageBuildSuffix></PackageBuildSuffix>
+    <PackageBuildNumberPrefix>prerelease</PackageBuildNumberPrefix>
+    <PackageBuildNumberPrefix Condition="'$(InIDE)' == 'true'">local</PackageBuildNumberPrefix>
+    <!-- Builds started within these many seconds of each other will have the same build number. -->
+    <BuildSecondsMultiple>30</BuildSecondsMultiple>
+
+    <!-- Calculate Version -->
+    <Now>$([System.DateTime]::UtcNow)</Now>
+    <Year>$([System.DateTime]::Parse($(Now)).Year.ToString().Substring(2))</Year>
+    <DayOfYear>$([System.DateTime]::Parse($(Now)).DayOfYear)</DayOfYear>
+    <SecondsSinceMidnight>$([System.Convert]::ToInt32($([System.DateTime]::Parse($(Now)).TimeOfDay.TotalSeconds)))</SecondsSinceMidnight>
+    <BuildYear>$([MSBuild]::Multiply($(Year), 100000000))</BuildYear>
+    <BuildDay>$([MSBuild]::Multiply($(DayOfYear), 100000))</BuildDay>
+    <BuildSeconds>$([MSBuild]::Divide($(SecondsSinceMidnight), $(BuildSecondsMultiple)))</BuildSeconds>
+    <BuildSeconds>$(BuildSeconds.Split('.')[0])</BuildSeconds>
+    <BuildYearDay>$([MSBuild]::Add($(BuildYear), $(BuildDay)))</BuildYearDay>
+    <!-- If environment variable LibraryBuildNumber is set, use that as the BuildNumber (set in CI build). -->
+    <IncludeBuildNumber>false</IncludeBuildNumber>
+    <IncludeBuildNumber Condition="'$(EnableLocalPackages)|$(InIDE)' == 'true|true'">true</IncludeBuildNumber>
+    <IncludeBuildNumber Condition="'$(LibraryBuildNumber)' != ''">true</IncludeBuildNumber>
+    <PackageBuildNumberPrefix Condition="'$(IncludeBuildNumber)' != 'true'"></PackageBuildNumberPrefix>
+    <BuildNumber Condition="'$(InIDE)' == 'true'">$([MSBuild]::Add($(BuildYearDay), $(BuildSeconds)))</BuildNumber>
+    <BuildNumber Condition="'$(LibraryBuildNumber)' != ''">$(LibraryBuildNumber)</BuildNumber>
+    <BuildNumber Condition="'$(IncludeBuildNumber)' != 'true'"></BuildNumber>
+    <Version>$(LibraryMajor).$(LibraryMinor).$(LibraryBuild)</Version>
+    <Version Condition="'$(PackageBuildSuffix)' != ''">$(Version)-$(PackageBuildSuffix)</Version>
+    <Version Condition="'$(PackageBuildNumberPrefix)' != ''">$(Version)-$(PackageBuildNumberPrefix)</Version>
+    <Version Condition="'$(BuildNumber)' != ''">$(Version)-$(BuildNumber)</Version>
+    <PackageVersion>$(Version)</PackageVersion>
+    <!-- End calculate Version -->
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Release\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugTests-NP-|AnyCPU'">
+    <OutputPath>..\bin\DebugTests-NP-\</OutputPath>
+  </PropertyGroup>
+
+</Project>

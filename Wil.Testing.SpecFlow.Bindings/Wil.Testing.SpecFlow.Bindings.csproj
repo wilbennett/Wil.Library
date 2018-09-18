@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishLocalPackage>true</PublishLocalPackage>
+    <Configurations>Debug;Release;DebugTests-NP-</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="GeneratedThenBindings.Contains.cs" />
+    <Compile Remove="GeneratedThenBindings.Equal.cs" />
+    <Compile Remove="GeneratedThenBindings.Equivalent.cs" />
+    <Compile Remove="GeneratedThenBindings.Greater.cs" />
+    <Compile Remove="GeneratedThenBindings.GreaterOrEqual.cs" />
+    <Compile Remove="GeneratedThenBindings.Less.cs" />
+    <Compile Remove="GeneratedThenBindings.LessOrEqual.cs" />
+    <Compile Remove="GeneratedThenBindings.NotContains.cs" />
+    <Compile Remove="GeneratedThenBindings.NotEqual.cs" />
+    <Compile Remove="GeneratedThenBindings.NotEquivalent.cs" />
+    <Compile Remove="GeneratedThenBindings.NotGreater.cs" />
+    <Compile Remove="GeneratedThenBindings.NotGreaterOrEqual.cs" />
+    <Compile Remove="GeneratedThenBindings.NotLess.cs" />
+    <Compile Remove="GeneratedThenBindings.NotLessOrEqual.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="GeneratedThenBindings.*.cs">
+      <DependentUpon>GeneratedThenBindings.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SpecFlow" Version="2.2.0">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wil.Core\Wil.Core.csproj" />
+    <ProjectReference Include="..\Wil.Testing.SpecFlow\Wil.Testing.SpecFlow.csproj" />
+    <ProjectReference Include="..\Wil.Testing\Wil.Testing.csproj" />
+  </ItemGroup>
+
+</Project>

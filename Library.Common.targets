@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <Import Project="Library.Common.tasks" />
+
+  <Target Name="InitNugetProps" BeforeTargets="Build;Pack;PackLegacy">
+    <PropertyGroup>
+      <IsDebugRegex>\bDEBUG\b</IsDebugRegex>
+      <IsDebug>false</IsDebug>
+      <IsDebugMatch>$([System.Text.RegularExpressions.Regex]::Match($(DefineConstants), $(IsDebugRegex)))</IsDebugMatch>
+      <IsDebug Condition="'$([System.Text.RegularExpressions.Regex]::Match($(DefineConstants), $(IsDebugRegex)))' != ''">true</IsDebug>
+      <PackageId Condition="'$(PackageId)' == ''">$(TargetName)</PackageId>
+      <HaveNuspec>false</HaveNuspec>
+      <HaveNuspec Condition="Exists('$(MSBuildProjectDirectory)\$(ProjectName).nuspec')">true</HaveNuspec>
+      <PackagesConfig Condition="Exists('$(MSBuildProjectDirectory)\packages.config')">$(MSBuildProjectDirectory)\packages.config</PackagesConfig>
+      <HavePackageConfig>false</HavePackageConfig>
+      <HavePackageConfig Condition ="'$(PackagesConfig)' != ''">true</HavePackageConfig>
+      <IsLegacy>false</IsLegacy>
+      <IsLegacy Condition="'$(TargetFramework)' == ''">true</IsLegacy>
+      <IsLegacyNuspec>false</IsLegacyNuspec>
+      <IsLegacyNuspec Condition="'$(IsLegacy)|$(HaveNuspec)' == 'true|true'">true</IsLegacyNuspec>
+      <AllowCustomNuget Condition="'$(NCrunch)' != '1'">true</AllowCustomNuget>
+      <GeneratePackageOnBuild Condition="'$(DisablePackageCreation)' == 'true'">false</GeneratePackageOnBuild>
+      <ShouldPack>false</ShouldPack>
+      <ShouldPack Condition="'$(GeneratePackageOnBuild)|$(IsLegacy)' == 'true|false'">true</ShouldPack>
+      <ShouldPack Condition="'$(GeneratePackageOnBuild)|$(IsLegacyNuspec)|$(AllowCustomNuget)' == 'true|true|true'">true</ShouldPack>
+      <ShouldPack Condition="'$(NuGetExe)' == ''">false</ShouldPack>
+      <AllowLocalPackages>false</AllowLocalPackages>
+      <AllowLocalPackages Condition="'$(EnableLocalPackages)|$(PublishLocalPackage)|$(InIDE)|$(AllowCustomNuget)|$(ShouldPack)' == 'true|true|true|true|true'">true</AllowLocalPackages>
+      <AllowLocalPackages Condition="'$(LocalNuGetDir)' == ''">false"</AllowLocalPackages>
+      <AllowLocalPackages Condition="'$(NuGetExe)' == ''">false"</AllowLocalPackages>
+      <PackageOutputDir Condition ="'$(IsLegacy)' != 'true'">$(TargetDir)..</PackageOutputDir>
+      <PackageOutputDir Condition ="'$(IsLegacy)' == 'true'">$(TargetDir).</PackageOutputDir>
+      <PackCommand Condition ="'$(IsLegacy)|$(IsDebug)' == 'true|true'">$(NuGetExe) pack &quot;$(ProjectPath)&quot; -properties PackageVersion=$(PackageVersion) -OutputDirectory &quot;$(PackageOutputDir)&quot;</PackCommand>
+      <PackCommand Condition ="'$(IsLegacy)|$(IsDebug)' == 'true|false'">$(NuGetExe) pack &quot;$(ProjectPath)&quot; -properties PackageVersion=$(PackageVersion);Configuration=Release -OutputDirectory &quot;$(PackageOutputDir)&quot;</PackCommand>
+      <PackagePath>$(PackageOutputDir)\$(PackageId).$(PackageVersion).nupkg</PackagePath>
+    </PropertyGroup>
+  </Target>
+
+  <!-- TODO: Need to fix this. Figure out how to properly match the versions. -->
+  <!--
+  Removes library packages from the packages folder and then does a restore.
+  This ensures the project is using the latest changes.
+  -->
+  <Target Name="RestorePackages" BeforeTargets="Build" Condition="'$(RestorePackagesBeforeBuild)' == 'true' and '$(AllowCustomNuget)' == 'true'">
+    <GetXmlElements Files="$(PackagesConfig)" ElementName="package" IdentityAttributeName="id" Condition="'$(PackagesConfig)' != ''">
+      <Output ItemName="PackagesConfigPackage" TaskParameter="Result" />
+    </GetXmlElements>
+
+    <ItemGroup>
+      <LibraryPackage Include="$(NugetPackageDir)%(PackagesConfigPackage.Identity)\%(PackagesConfigPackage.version)"
+                  Condition="'$([System.Text.RegularExpressions.Regex]::Match(%(PackagesConfigPackage.Identity), $(LibraryPackageRegex)))' != ''" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <LibraryPackage Include="$(NugetPackageDir)%(PackageReference.Identity)\%(PackageReference.Version)"
+                  Condition="'$([System.Text.RegularExpressions.Regex]::Match(%(PackageReference.Identity), $(LibraryPackageRegex)))' != ''" />
+    </ItemGroup>
+
+    <PropertyGroup Condition="'@(LibraryPackage->Count())' != '0'">
+      <HaveLibraryPackages>true</HaveLibraryPackages>
+    </PropertyGroup>
+
+    <Delete Files="%(LibraryPackage.Identity)\**\*'" Condition="'$(HaveLibraryPackages)' == 'true'" />
+    <RemoveDir Directories="%(LibraryPackage.Identity)" Condition="'$(HaveLibraryPackages)' == 'true'" />
+
+    <Exec
+      Command="&quot;$(MSBuildBinPath)\msbuild&quot; /t:restore"
+      WorkingDirectory="$(ProjectDir)"
+      Condition="'$(HaveLibraryPackages)' == 'true'"
+      LogStandardErrorAsError="true"
+      ConsoleToMSBuild="false" />
+  </Target>
+
+  <!-- Deletes prior packages from legacy projects (using packages.config instead of PackageReference). -->
+  <Target Name="DeleteLegacyPackages" BeforeTargets="Build" Condition="'$(IsLegacyNuspec)' == 'true'">
+    <ItemGroup>
+      <ExistingPackages Include="$(PackageOutputDir)\*.nupkg" />
+    </ItemGroup>
+    <Delete Files="@(ExistingPackages)" />
+  </Target>
+
+  <!-- Creates a nuget package from legacy projects (using packages.config instead of PackageReference). -->
+  <Target Name="PackLegacy" AfterTargets="Build" Condition="'$(IsLegacy)|$(ShouldPack)' == 'true|true'">
+    <Exec Command="$(PackCommand)" WorkingDirectory="$(MSBuildProjectDirectory)" LogStandardErrorAsError="true" ConsoleToMSBuild="true" />
+  </Target>
+
+  <Target Name="CustomPack" DependsOnTargets="InitNugetProps">
+    <CallTarget Targets="PackLegacy" Condition ="'$(IsLegacy)' == 'true'"/>
+    <CallTarget Targets="Pack" Condition ="'$(IsLegacy)' == 'false'"/>
+  </Target>
+
+  <!-- Publishes the package to a local NuGet repository. -->
+  <Target Name="PublishLocalPackage" AfterTargets="Pack" Condition="'$(AllowLocalPackages)|$(IsLegacy)' == 'true|false'">
+    <Exec Command="$(NuGetExe) delete $(PackageId) $(PackageVersion) -Source $(LocalNuGetDir)" IgnoreExitCode="true" IgnoreStandardErrorWarningFormat="true" />
+    <Exec Condition="Exists('$(PackagePath)')" Command="$(NuGetExe) add &quot;$(PackagePath)&quot; -Source $(LocalNuGetDir)" WorkingDirectory="$(OutDir)" LogStandardErrorAsError="true" ConsoleToMSBuild="true" />
+    <Warning Condition="!Exists('$(PackagePath)')" Text="$(PackagePath) not found." />
+  </Target>
+
+  <!--
+  Weird problem setting AfterTargets="Pack;PackLegacy" in PublishLocalPackage.
+  It causes the target to run before the package is in the folder!
+  Creating a separate target that runs the same commands fixes the issue.
+  -->
+  <Target Name="PublishLocalLegacyPackage" AfterTargets="PackLegacy" Condition="'$(AllowLocalPackages)|$(IsLegacy)' == 'true|true'">
+    <Exec Command="$(NuGetExe) delete $(PackageId) $(PackageVersion) -Source $(LocalNuGetDir)" IgnoreExitCode="true" IgnoreStandardErrorWarningFormat="true" />
+    <Exec Condition="Exists('$(PackagePath)')" Command="$(NuGetExe) add &quot;$(PackagePath)&quot; -Source $(LocalNuGetDir)" WorkingDirectory="$(OutDir)" LogStandardErrorAsError="true" ConsoleToMSBuild="true" />
+    <Warning Condition="!Exists('$(PackagePath)')" Text="$(PackagePath) not found." />
+  </Target>
+</Project>

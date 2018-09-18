@@ -1,0 +1,12 @@
+﻿<Project>
+  <PropertyGroup>
+    <GeneratePackageOnBuild Condition="'$(PublishLocalPackage)' == 'true'">true</GeneratePackageOnBuild>
+    <Authors Condition="'$(Authors)' == ''">Wil Bennett</Authors>
+    <Company Condition="'$(Company)' == ''">Midnight Coders</Company>
+    <LibraryPackageRegex>^Wil\..+</LibraryPackageRegex>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.ncrunchproject" />
+  </ItemGroup>
+</Project>

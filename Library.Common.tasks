@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!-- Waits for a maximum period of time until a file exists. -->
+  <UsingTask
+    TaskName="WaitFileExists"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Filename Required="true" />
+      <TimeoutSeconds ParameterType="System.Int32" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.Threading"/>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        while (!File.Exists(Filename) && TimeoutSeconds > 0)
+        {
+            Thread.Sleep(1000);
+            TimeoutSeconds--;
+        }
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!-- Generates a build number. -->
+  <UsingTask
+    TaskName="CreateBuildNumber"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Result ParameterType="System.Int32" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+        DateTime now = DateTime.UtcNow;
+        int daysFromPriorYear = (int)(now.Date - new DateTime(now.Year - 1, 1, 1).Date).TotalDays;
+        int secondsSinceMidnight = (int)now.TimeOfDay.TotalSeconds;
+        Result = daysFromPriorYear * 1000000 + secondsSinceMidnight;
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <!-- Loads XML elements from the specified files and returns them as task items. -->
+  <UsingTask
+    TaskName="GetXmlElements"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll" >
+    <ParameterGroup>
+      <Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <ElementName Required="true" />
+      <IdentityAttributeName Required="true" />
+      <Result ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="System.Xml"/>
+      <Reference Include="System.Xml.Linq"/>
+      <Using Namespace="System.Collections.Generic"/>
+      <Using Namespace="System.Xml.Linq"/>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+    var results = new List<ITaskItem>();
+
+    for (int i = 0; i < Files.Length; i++)
+    {
+        ITaskItem fileItem = Files[i];
+        string path = fileItem.GetMetadata("FullPath");
+        XElement xml = XElement.Load(path);
+        var elements = xml.Descendants(ElementName);
+
+        foreach (XElement element in elements)
+        {
+            XAttribute identityAttribute = element.Attribute(IdentityAttributeName);
+        
+            if (identityAttribute == null) continue;
+
+            var item = new TaskItem(identityAttribute.Value);
+
+            foreach (XAttribute attribute in element.Attributes())
+            {
+                item.SetMetadata(attribute.Name.LocalName, attribute.Value);
+            }
+
+            foreach (XElement childElement in element.Elements())
+            {
+                item.SetMetadata(childElement.Name.LocalName, childElement.Value);
+            }
+
+            results.Add(item);
+        }
+    }
+    
+    Result = results.ToArray();
+]]>
+      </Code>
+    </Task>
+  </UsingTask>
+</Project>

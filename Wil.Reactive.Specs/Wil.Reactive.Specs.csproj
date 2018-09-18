@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D6036D3-8E64-4ACD-99EC-4E60B0168CBB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Wil.Reactive.Specs</RootNamespace>
+    <AssemblyName>Wil.Reactive.Specs</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <!--<RestorePackagesBeforeBuild>true</RestorePackagesBeforeBuild>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Reactive.Testing, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reactive.Testing.3.1.1\lib\net46\Microsoft.Reactive.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.PlatformServices.3.1.1\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="TechTalk.SpecFlow, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.2.2.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Wil.Testing.MsTest.SpecFlowPlugin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wil.Testing.MsTest.SpecFlowPlugin.1.0.0\lib\net47\Wil.Testing.MsTest.SpecFlowPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clock.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Clock.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ClockSteps.cs" />
+    <Compile Include="CommonFeatureSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExBoolean.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExBoolean.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExBooleanSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExErrors.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExErrors.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExErrorsSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExExecute.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExExecute.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExExecuteSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExSpeedLimit.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExSpeedLimit.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExSpeedLimitSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExSpeedMeasure.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExSpeedMeasure.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExSpeedMeasureSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExSpeedThrottleTo.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExSpeedThrottleTo.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExSpeedThrottleToSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExStale.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExStale.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExStaleSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExStreams.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExStreams.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExStreamsSteps.cs" />
+    <Compile Include="ObservableExTests\ObservableExTimer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ObservableExTimer.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ObservableExTests\ObservableExTimerSteps.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactiveFileUtils.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReactiveFileUtils.feature</DependentUpon>
+    </Compile>
+    <Compile Include="ReactiveFileUtilsSteps.cs" />
+    <Compile Include="Speedometer.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Speedometer.feature</DependentUpon>
+    </Compile>
+    <Compile Include="TestSchedulerSteps.cs" />
+    <Compile Include="Transforms.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Clock.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Clock.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExBoolean.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExBoolean.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExErrors.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExErrors.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExExecute.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExExecute.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExSpeedLimit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExSpeedLimit.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExSpeedMeasure.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExSpeedMeasure.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExSpeedThrottleTo.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExSpeedThrottleTo.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExStale.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExStale.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExStreams.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExStreams.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ObservableExTests\ObservableExTimer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ObservableExTimer.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="ReactiveFileUtils.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ReactiveFileUtils.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Speedometer.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Speedometer.feature.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wil.Core.Interfaces\Wil.Core.Interfaces.csproj">
+      <Project>{a9a7f2aa-d379-4512-be7b-c3d4f532bd33}</Project>
+      <Name>Wil.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Core\Wil.Core.csproj">
+      <Project>{e39abc45-8040-4b31-b63a-f0944fec5914}</Project>
+      <Name>Wil.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Reactive.Interfaces\Wil.Reactive.Interfaces.csproj">
+      <Project>{4abf0adb-9d61-40ee-aea7-f351c7043a59}</Project>
+      <Name>Wil.Reactive.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Reactive\Wil.Reactive.csproj">
+      <Project>{8a2ee461-57e3-4324-9c46-7a359454fec2}</Project>
+      <Name>Wil.Reactive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing.MsTest\Wil.Testing.MsTest.csproj">
+      <Project>{9a76de65-1c17-43c3-b2c5-5366465638a5}</Project>
+      <Name>Wil.Testing.MsTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing.SpecFlow.Bindings\Wil.Testing.SpecFlow.Bindings.csproj">
+      <Project>{a71cb596-3491-4e28-8907-a19b5972063e}</Project>
+      <Name>Wil.Testing.SpecFlow.Bindings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing.SpecFlow\Wil.Testing.SpecFlow.csproj">
+      <Project>{85ad2aa5-d77f-49b6-a889-3a4c6024028a}</Project>
+      <Name>Wil.Testing.SpecFlow</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wil.Testing\Wil.Testing.csproj">
+      <Project>{47254578-de93-4e6d-b89c-ab9fc8a35337}</Project>
+      <Name>Wil.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.2.1\build\net45\MSTest.TestAdapter.targets')" />
+</Project>

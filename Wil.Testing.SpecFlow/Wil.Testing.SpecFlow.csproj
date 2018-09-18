@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishLocalPackage>true</PublishLocalPackage>
+    <Configurations>Debug;Release;DebugTests-NP-</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="ContextExtensions.*.cs">
+      <DependentUpon>ContextExtensions.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+    <PackageReference Include="SpecFlow" Version="2.2.0">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wil.Core\Wil.Core.csproj" />
+    <ProjectReference Include="..\Wil.Testing\Wil.Testing.csproj" />
+  </ItemGroup>
+
+</Project>

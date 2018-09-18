@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <specFlow>
+    <unitTestProvider name="MsTest" />
+    <stepAssemblies>
+      <stepAssembly assembly="Wil.Testing.SpecFlow.Bindings" />
+    </stepAssemblies>
+    <plugins>
+      <add name="Wil.Testing.MsTest" type="Runtime" />
+    </plugins>
+  </specFlow>
+  
+</configuration>
